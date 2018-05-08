@@ -1,0 +1,44 @@
+#auth:liangyazi
+#you can change the path of variable ‘b’ to define the output files path
+import os
+import time
+import random
+def nsfile(s):
+    global user_choose
+    '''The number of new expected documents'''
+    b = os.path.exists("d:\\share\\")
+    if b:
+        print('File Exist!')
+    else:
+        os.mkdir("d:\\share\\")
+    for i in range(1,s+1):
+        if user_choose ==1:
+            size = random.randint(1,1024*1024)
+        if user_choose ==2:
+            size = random.randint(1,10240*10240)
+        localtime=time.strftime('%Y%m%d-%H%M%S',time.localtime(time.time()))
+        #print localtime
+        filename = "d:\\share\\"+localtime+".txt"
+        f = open(filename,'w+')
+        f.seek(size)
+        #testnote = '\x00'
+        f.write('\x00')
+        f.close()
+        print("file"+" "+str(i)+":"+str(localtime)+".txt")
+        time.sleep(1)
+    print("Finished %d file is created"%s)
+    #time.sleep(1)
+
+if __name__ == '__main__':
+    global user_choose
+    user_choose = None
+    while True:
+        s = int(input('请输入要生成的文件数量:'))
+        size = print('请选择随机生成文件大小：')
+        print('1）1k - 1M 随机生成')
+        print('2）1k - 100M 随机生成')
+        user_choose = int(input('请选择：'))
+        if user_choose !=1 and user_choose !=2:
+            print('请重新输入！')
+            continue
+        nsfile(s)
